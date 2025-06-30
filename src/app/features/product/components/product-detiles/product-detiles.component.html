@@ -1,0 +1,43 @@
+<section>
+     <div class="container mx-auto p-4">
+          <div class="grid sm:grid-cols-12 gap-6">
+               <!-- صورة المنتج -->
+               <div class="sm:col-span-12 md:col-span-6 h-[400px] bg-contain bg-center bg-no-repeat rounded-lg shadow-md"
+     [style.background-image]="'url(' + productDetiles.imageCover + ')'">
+</div>
+
+
+               <!-- تفاصيل المنتج -->
+               <div class="sm:col-span-12 md:col-span-6">
+                    <h2 class="text-3xl font-bold text-gray-800">{{ productDetiles.title }}</h2>
+                    <h3 class="text-xl font-semibold text-gray-600">{{ productDetiles.brand.name }}</h3>
+
+                    <!-- السعر -->
+                    <h4 class="text-lg font-semibold text-gray-800 mt-2">
+                         {{ productDetiles.priceAfterDiscount || productDetiles.price }} EGP
+                    </h4>
+
+                    <!-- الوصف -->
+                    <p class="text-gray-600 mt-2">{{ productDetiles.description }}</p>
+
+                    <!-- التقييم والمبيعات -->
+                    <div class="flex items-center justify-between mt-3">
+                         <div class="flex items-center text-yellow-500">
+                              ⭐ <span class="text-lg font-semibold ml-1">{{ productDetiles.ratingsAverage }}</span>
+                              <span class="text-gray-500 text-sm ml-2">({{ productDetiles.ratingsQuantity }}
+                                   reviews)</span>
+                         </div>
+                         <span class="text-gray-500 text-sm">Sold: {{ productDetiles.sold }}</span>
+                    </div>
+
+                    <!-- زر الإضافة إلى السلة -->
+                    <!-- زر الإضافة إلى السلة -->
+                    <button (click)="addToCart()"
+                         class="bg-primary cursor-pointer hover:bg-green-800 text-white px-4 py-2 rounded-xl w-full mt-4 transition-transform duration-300 hover:scale-105 active:scale-95 shadow-md hover:shadow-lg">
+                         🛒 Add to Cart
+                    </button>
+
+               </div>
+          </div>
+     </div>
+</section>

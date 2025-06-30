@@ -1,0 +1,10 @@
+{
+    "navigation": {
+        "home": "Home",
+        "category": "Category",
+        "brands": "Brands",
+        "products": "Products",
+        "cart": "Cart",
+        "logout": "Logout"
+    }
+}

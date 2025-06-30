@@ -1,0 +1,222 @@
+<section>
+
+     <div class="max-w-md mx-auto py-14">
+          <form class="bg-white text-gray-950 shadow-md rounded p-7" action="#" [formGroup]="registerForm"
+               (ngSubmit)="submitInput()">
+               <h2 class="w-full text-2xl py-3">Register Now:</h2>
+
+               <!-- Name Input -->
+               <div class="relative z-0 w-full mb-5 group">
+                    @let name = registerForm.get('name');
+                    <input type="text" formControlName="name" id="floating_name"
+                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 peer focus:outline-none focus:ring-0 focus:border-blue-600"
+                         placeholder=" " required />
+                    <label for="floating_name"
+                         class="peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 text-gray-500 peer-focus:text-blue-600">Name</label>
+                    <div *ngIf="name?.touched && name?.errors">
+                         <p *ngIf="name?.errors?.['required']" class="text-red-600 text-sm mt-2">
+                              Name is required</p>
+                         <p *ngIf="name?.errors?.['minlength']" class="text-red-600 text-sm mt-2">
+                              Name must be at least 3 characters</p>
+                    </div>
+               </div>
+
+               <!-- Email Input -->
+               <div class="relative z-0 w-full mb-5 group">
+                    @let email = registerForm.get('email');
+                    <input type="email" formControlName="email" id="floating_email"
+                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 peer focus:outline-none focus:ring-0 focus:border-blue-600"
+                         placeholder=" " required />
+                    <label for="floating_email"
+                         class="peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 text-gray-500 peer-focus:text-blue-600">Email
+                         address</label>
+                    <div *ngIf="email?.touched && email?.invalid">
+                         <p *ngIf="email?.errors?.['required']" class="text-red-600 text-sm mt-2">
+                              Email is required</p>
+                         <p *ngIf="email?.errors?.['email']" class="text-red-600 text-sm mt-2">Email
+                              is not valid</p>
+                         <p *ngIf="email?.errors?.['minlength']" class="text-red-600 text-sm mt-2">
+                              Email must be at least 3 characters</p>
+                    </div>
+               </div>
+
+               <!-- Password Input -->
+               <div class="relative z-0 w-full mb-5 group">
+                    @let password = registerForm.get('password');
+                    <input type="password" formControlName="password" id="floating_password"
+                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 peer focus:outline-none focus:ring-0 focus:border-blue-600"
+                         placeholder=" " required />
+                    <label for="floating_password"
+                         class="peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 text-gray-500 peer-focus:text-blue-600">Password</label>
+                    <div *ngIf="password?.touched && password?.invalid">
+                         <p class="text-red-600 text-sm mt-2">Password is required and must be at least 3 characters</p>
+                    </div>
+               </div>
+
+               <!-- RePassword Input -->
+               <div class="relative z-0 w-full mb-5 group">
+                    @let rePassword = registerForm.get('rePassword');
+                    <input type="password" formControlName="rePassword" id="floating_repeat_password"
+                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 peer focus:outline-none focus:ring-0 focus:border-blue-600"
+                         placeholder=" " required />
+                    <label for="floating_repeat_password"
+                         class="peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 text-gray-500 peer-focus:text-blue-600">Confirm
+                         Password</label>
+
+                    <div *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.touched">
+                         <p class="text-red-600 text-sm mt-2">Passwords do not match</p>
+                    </div>
+                    <div *ngIf="rePassword?.touched && rePassword?.invalid">
+                         <p *ngIf="rePassword?.errors?.['required']" class="text-red-600 text-sm mt-2">Confirm password
+                              is required</p>
+                         <p *ngIf="rePassword?.errors?.['minlength']" class="text-red-600 text-sm mt-2">Confirm password
+                              must be at least 3 characters</p>
+                         <p *ngIf="rePassword?.errors?.['maxlength']" class="text-red-600 text-sm mt-2">Confirm password
+                              must be less than 20 characters</p>
+                    </div>
+               </div>
+
+               <!-- Submit Button -->
+               <button type="submit" [disabled]="registerForm.invalid || !isLoading"
+                    [class.bg-gray-500]="registerForm.invalid || !isLoading" [class.opacity-100]="registerForm.valid"
+                    [class.cursor-pointer]="registerForm.valid" [class.cursor-not-allowed]="registerForm.invalid"
+                    class="text-white bg-blue-700    focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">
+                    @if (isLoading) {
+                    submit
+                    }@else {
+                    <div role="status " class="flex items-center justify-center">
+                         <svg aria-hidden="true"
+                              class="inline w-8 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-white"
+                              viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                   fill="currentColor" />
+                              <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                   fill="currentFill" />
+                         </svg>
+                         <span>Loading...</span>
+                    </div>
+                    }
+               </button>
+
+
+               <!-- Login Link -->
+               <p class="text-center text-gray-600 text-sm mt-4">Already have an account?
+                    <a href="#" class="text-blue-500">Login</a>
+               </p>
+               <!-- Alert Message -->
+               <div *ngIf="msgResponse" class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50"
+                    role="alert">
+                    <svg aria-hidden="true" class="w-5 h-5 inline-flex mr-3 text-red-700" fill="currentColor"
+                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                         <path fill-rule="evenodd"
+                              d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-.293-11.293a1 1 0 0 1 1.414 1.414L9.414 10l1.293 1.293a1 1 0 1 1-1.414 1.414L8 10l2.707-2.707zM9 7a1 1 0 1 1-2 0h2z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Info</span>
+                    {{msgResponse}}
+               </div>
+
+
+          </form>
+     </div>
+</section>
+
+<!-- 
+<div class="max-w-md my-20 px-3 mx-auto">
+     <div class="relative z-0 w-full mb-5 group">
+          <input [formControl]="name" type="name" name="floating_name" id="floating_name"
+               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+               placeholder=" " required />
+          <label for="floating_name"
+               class="peer-focus:font-medium absolute text-sm    duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Name
+          </label>
+          @if (name.errors) {
+          <ul class="text-red-600 text-sm mt-2">
+               @if (name.errors['required']&&name.touched) {
+               <li>Name is required</li>
+               }
+               @if (name.errors['minlength']) {
+               <li>Name must be at least 3 characters</li>
+               }
+               @if (name.errors['maxlength']) {
+               <li>Name must be less than 20 characters</li>
+               }
+          </ul>
+
+          }
+     </div>
+     <div class="relative z-0 w-full mb-5 group">
+          <input [formControl]="mail" type="email" name="floating_email" id="floating_email"
+               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+               placeholder=" " required />
+          <label for="floating_email"
+               class="peer-focus:font-medium absolute text-sm    duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email
+               address</label>
+          @if (mail.errors) {
+          <ul class="text-red-600 text-sm mt-2">
+               @if (mail.errors['required']&&mail.touched) {
+               <li>mail is required</li>
+               }
+               @if (mail.errors['email']) {
+               <li>mail is not valid</li>
+               }
+               @if (mail.errors['minlength']) {
+               <li>mail must be at least 3 characters</li>
+               }
+
+          </ul>
+
+          }
+     </div>
+     <div class="relative z-0 w-full mb-5 group">
+          <input [formControl]="password" type="password" name="floating_password" id="floating_password"
+               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+               placeholder=" " required />
+          <label for="floating_password"
+               class="peer-focus:font-medium absolute text-sm    duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
+          @if (password.errors) {
+          <ul class="text-red-600 text-sm mt-2">
+               @if (password.errors['required']&&password.touched) {
+               <li>password is required</li>
+               }
+               @if (password.errors['epassword']) {
+               <li>password is not valid</li>
+               }
+               @if (password.errors['minlength']) {
+               <li>password must be at least 3 characters</li>
+               }
+
+
+          </ul>
+
+          }
+     </div>
+     <div class="relative z-0 w-full mb-5 group">
+          <input [formControl]="confirmPassword" type="password" name="repeat_password" id="floating_repeat_password"
+               class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+               placeholder=" " required />
+          <label for="floating_repeat_password"
+               class="peer-focus:font-medium absolute text-sm    duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm
+               password</label>
+          @if (confirmPassword.errors) {
+          <ul class="text-red-600 text-sm mt-2">
+               @if (confirmPassword.errors['required']&&confirmPassword.touched) {
+               <li>Confirm password is required</li>
+               }
+               @if (confirmPassword.errors['minlength']) {
+               <li>Confirm password must be at least 3 characters</li>
+               }
+               @if (confirmPassword.errors['maxlength']) {
+               <li>Confirm password must be less than 20 characters</li>
+               }
+          </ul>
+          }
+     </div>
+
+
+     <button type="submit" (click)="submitInput()"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register</button>
+     <p class="text-center text-gray-600 text-sm mt-4">Already have an account?
+          <a href="#" class="text-blue-500">Login</a>
+     </p>
+</div> -->

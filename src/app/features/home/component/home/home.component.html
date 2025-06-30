@@ -1,0 +1,7 @@
+<app-main-slider></app-main-slider>
+<app-product-list></app-product-list>
+<button
+    class="fixed bottom-6 right-6 z-50 bg-primary text-white p-4 rounded-full shadow-lg hover:bg-primary-dark transition-all duration-300 group"
+    *ngIf="showScrollButton" (click)="scrollToTop()" aria-label="Scroll to top">
+    <i class="fa-solid fa-angles-up text-xl group-hover:scale-125 transition-transform duration-300"></i>
+</button>

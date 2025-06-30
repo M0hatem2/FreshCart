@@ -1,0 +1,31 @@
+<section class="py-8 bg-gradient-to-br  min-h-screen">
+     <div class="container mx-auto px-4">
+         
+          <!-- 🔍 Search Input -->
+          <div class="flex justify-center mb-8">
+               <input type="text" [(ngModel)]="searchTerm" placeholder="🔍 Search for products..."
+                    class="w-full shadow-sm  shadow-gray-300 sm:w-2/3 lg:w-1/2 px-5 py-3 rounded-xl text-gray-800 placeholder-gray-400 border border-gray-200   focus:outline-none focus:ring-2 focus:ring-fuchsia-500 transition" />
+          </div>
+
+          <!-- 🏷️ Section Title -->
+          <h2
+               class="text-center bg-fuchsia-900 w-full  text-white text-3xl sm:text-4xl font-extrabold tracking-wide mb-8 rounded-full py-3 px-6 inline-block shadow-md">
+               Popular Products
+          </h2>
+
+          <!-- 🛍️ Product Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+               @for (product of allProducts | search: searchTerm; track product._id) {
+               <app-product-cart [product]="product" (addToCart)="addProductToCart($event)">
+               </app-product-cart>
+               } @empty {
+               <!-- ❗ No Products Message -->
+               <div
+                    class="col-span-full text-center text-fuchsia-900 bg-white/10 backdrop-blur-sm rounded-xl py-10 px-6 text-xl font-medium border border-fuchsia-900 border-dashed shadow-inner">
+                    <i class="fa-solid fa-face-frown"></i> No products found matching "<span class="font-semibold">{{
+                         searchTerm }}</span>"
+               </div>
+               }
+          </div>
+     </div>
+</section>

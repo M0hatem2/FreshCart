@@ -1,0 +1,62 @@
+@if (isLoading) {
+     <section class="container mx-auto px-4 py-6">
+       <!-- عنوان الصفحة -->
+       <h2 class="text-3xl font-bold text-gray-800 mb-4">🛒 Shopping Cart</h2>
+   
+       <!-- إجمالي السعر -->
+       <p class="text-main font-semibold text-lg mb-6">
+         🧾 Total Cart Price: <span class="text-primary">{{ cartItems.data.totalCartPrice }} EGP</span>
+       </p>
+   
+       <!-- حالة السلة الفارغة -->
+       <div *ngIf="cartItems.data.products.length === 0"
+            class="flex flex-col items-center p-16 justify-center mt-10 bg-gray-50 rounded-lg shadow-inner text-gray-600">
+         <svg class="w-14 h-14 mb-4 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+           <path stroke-linecap="round" stroke-linejoin="round"
+                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7a1 1 0 00.9 1.5h12.2a1 1 0 00.9-1.5L17 13M7 13V6h11" />
+         </svg>
+         <p class="text-xl font-semibold mb-1">Your cart is empty</p>
+         <p class="text-sm text-gray-500 mb-4">Start adding some products to make it full!</p>
+         <button routerLink="/user/products"
+                 class="bg-primary text-white px-5 py-2 rounded-full hover:bg-primary/90 transition">
+           Browse Products
+         </button>
+       </div>
+   
+       <!-- زرار Clear Cart -->
+       <div *ngIf="cartItems.data.products.length > 0" class="mb-4 text-right">
+         <button (click)="clearCart()"
+                 class="bg-red-500 cursor-pointer hover:bg-red-600 text-white font-medium py-2 px-4 rounded-md transition">
+           🧹 Clear Cart
+         </button>
+       </div>
+   
+       <!-- المنتجات في السلة -->
+       <div *ngFor="let item of cartItems.data.products" class="mb-4">
+         <app-cart-items
+           [product]="item"
+           (removeProduct)="removeItemFromCart($event)"
+           (updateProductQTY)="updateQTY($event.id,$event.count)">
+         </app-cart-items>
+       </div>
+   
+       <!-- الأزرار السفلية -->
+       <div class="flex cursor-pointer flex-col md:flex-row justify-between items-center gap-4 mt-8 p-4 bg-gray-100 rounded-lg shadow-md">
+   
+         <!-- زر المتابعة -->
+         <button routerLink="/user/products"
+                 class="w-full cursor-pointer md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded-full transition duration-300 flex items-center justify-center gap-2">
+           🔁 Continue Shopping
+         </button>
+   
+         <!-- زر الشيك آوت -->
+         <button [routerLink]="['/user/checkout', cartItems.cartId]" *ngIf="cartItems.data.products.length > 0"
+                 class="w-full cursor-pointer md:w-auto bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-full transition duration-300 flex items-center justify-center gap-2">
+           💳 Checkout – {{ cartItems.data.totalCartPrice }} EGP
+         </button>
+   
+       </div>
+     </section>
+   }
+   

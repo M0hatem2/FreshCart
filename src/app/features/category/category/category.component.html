@@ -1,0 +1,22 @@
+<div class="w-full p-4">
+  <!-- Search Input -->
+  <div class="flex justify-center mb-6">
+    <input type="text" [(ngModel)]="searchTerm" placeholder="🔍 Search for category..."
+      class="w-full sm:w-2/3 lg:w-1/2 px-5 py-3 rounded-xl text-gray-800 placeholder-gray-400 border border-gray-200 shadow-sm shadow-gray-300 focus:outline-none focus:ring-2 focus:ring-fuchsia-500 transition" />
+  </div>
+
+  <!-- Product Grid -->
+  <div class="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+    @if (allProducts.length > 0) {
+    @for (product of filteredProducts; track product._id) {
+
+    <app-product-cart [product]="product" (addToCart)="addProductToCart($event)">
+    </app-product-cart>
+    }
+    } @else {
+    <div class="col-span-full text-center text-gray-500 p-8">
+      No products available at the moment.
+    </div>
+    }
+  </div>
+</div>

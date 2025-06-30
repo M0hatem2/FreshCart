@@ -1,0 +1,113 @@
+<section>
+     <div class="max-w-md mx-auto py-14">
+          <form class="bg-white text-gray-950 shadow-md rounded p-7" [formGroup]="checkoutForm"
+               (ngSubmit)="submitInput()">
+               <h2 class="w-full text-2xl py-3">Checkout</h2>
+
+
+               <!-- Address -->
+               <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" formControlName="address" id="address"
+                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 peer focus:outline-none focus:ring-0 focus:border-blue-600"
+                         placeholder=" " required />
+                    <label for="address"
+                         class="peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:scale-75 peer-focus:-translate-y-6 text-gray-500 peer-focus:text-blue-600">
+                         Address
+                    </label>
+                    <div *ngIf="checkoutForm.get('address')?.invalid && checkoutForm.get('address')?.touched"
+                         class="mt-1">
+                         <small class="text-red-500 text-xs italic flex items-center gap-1">
+                              <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                   xmlns="http://www.w3.org/2000/svg">
+                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                   </path>
+                              </svg>
+                              Address is required (min 5 characters)
+                         </small>
+                    </div>
+
+               </div>
+
+               <!-- Phone Number -->
+               <!-- Phone Number -->
+               <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" formControlName="phoneNumber" id="phoneNumber" maxlength="11"
+                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 peer focus:outline-none focus:ring-0 focus:border-blue-600"
+                         placeholder=" " required />
+                    <label for="phoneNumber"
+                         class="peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:scale-75 peer-focus:-translate-y-6 text-gray-500 peer-focus:text-blue-600">
+                         Phone Number
+                    </label>
+
+                    <!-- Error message -->
+                    <div *ngIf="checkoutForm.get('phoneNumber')?.invalid && checkoutForm.get('phoneNumber')?.touched"
+                         class="mt-1">
+                         <small class="text-red-500 text-xs italic flex items-center gap-1">
+                              <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                   xmlns="http://www.w3.org/2000/svg">
+                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              Valid phone number is required
+                         </small>
+                    </div>
+               </div>
+
+               <!-- City -->
+               <div class="relative z-0 w-full mb-5 group">
+                    <input type="text" formControlName="city" id="city" maxlength="11"
+                         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 peer focus:outline-none focus:ring-0 focus:border-blue-600"
+                         placeholder=" " required />
+                    <label for="city"
+                         class="peer-focus:font-medium absolute text-sm duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:scale-75 peer-focus:-translate-y-6 text-gray-500 peer-focus:text-blue-600">
+                         City
+                    </label>
+
+                    <!-- Error message -->
+                    <div *ngIf="checkoutForm.get('city')?.invalid && checkoutForm.get('city')?.touched" class="mt-1">
+                         <small class="text-red-500 text-xs italic flex items-center gap-1">
+                              <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                   xmlns="http://www.w3.org/2000/svg">
+                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              City is required
+                         </small>
+                    </div>
+               </div>
+
+
+               <!-- Submit Button -->
+               <button type="submit" [disabled]="checkoutForm.invalid || isLoading"
+                    [class.bg-gray-500]="checkoutForm.invalid || isLoading"
+                    [class.opacity-100]="checkoutForm.invalid && !isLoading"
+                    [class.cursor-pointer]="checkoutForm.valid && !isLoading"
+                    [class.cursor-not-allowed]="checkoutForm.invalid || isLoading"
+                    class="text-white bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center flex items-center justify-center gap-2">
+                    <ng-container *ngIf="!isLoading; else loading">
+                         Confirm Payment
+                    </ng-container>
+                    <ng-template #loading>
+                         <svg aria-hidden="true"
+                              class="inline w-5 h-5 text-gray-200 animate-spin dark:text-gray-600 fill-white"
+                              viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M100 50.5908C100 78.2051 ..." fill="currentColor" />
+                              <path d="M93.9676 39.0409 ..." fill="currentFill" />
+                         </svg>
+                         <span>Processing...</span>
+                    </ng-template>
+               </button>
+
+               <!-- Response Alert -->
+               <div *ngIf="msgResponse" class="flex items-center p-4 mt-4 text-green-800 rounded-lg bg-green-50"
+                    role="alert">
+                    <svg aria-hidden="true" class="w-5 h-5 inline-flex mr-3 text-green-700" fill="currentColor"
+                         viewBox="0 0 20 20">
+                         <path fill-rule="evenodd" d="M10 18a8 8 0 1 0 0-16..." clip-rule="evenodd"></path>
+                    </svg>
+                    <span>{{ msgResponse }}</span>
+               </div>
+          </form>
+     </div>
+</section>
